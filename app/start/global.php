@@ -51,6 +51,12 @@ App::error(function(Exception $exception, $code)
 	Log::error($exception);
 });
 
+App::error(function(Illuminate\Database\Eloquent\ModelNotFoundException $exception)
+{
+	// goes to Route::get('/', ['as' => 'home', 'uses' => 'TasksController@index']);
+	return Redirect::home();
+});
+
 /*
 |--------------------------------------------------------------------------
 | Maintenance Mode Handler
