@@ -17,9 +17,9 @@ Route::get('{username}/tasks', function($username)
 Route::get('{username}/tasks/{id}', function($username, $id)
 {
 
-	$user = User::whereUsername($username)->first();
-	$task = $user->tasks()->findOrFail($id);
+	$user = User::with('tasks')->whereUsername($username)->first();
+	$task = $user->tasks;
 
-	return View::make('tasks.show', compact('task'));
+	return View::make('tasks.show', compact('user' ,'task'));
 	// load a view to display it
 });	
