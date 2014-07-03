@@ -34,7 +34,16 @@ class TasksController extends BaseController
 
 	public function store()
 	{
-		try
+
+		$task = new Task(Input::all());
+
+		if ( ! $task->save())
+		{
+		
+			Redirect::back()->withInput()->withErrors($task->getErrors());
+		}
+
+		/*try
 		{
 			$this->taskCreator->make(Input::all());
 
@@ -43,7 +52,7 @@ class TasksController extends BaseController
 		catch(Acme\Validators\ValidationException $e)
 		{
 			return Redirect::back()->withInput()->withErrors($e->getErrors());
-		}
+		}*/
 
 		return Redirect::home();
 	}
